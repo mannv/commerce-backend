@@ -1,0 +1,47 @@
+version: '3.3'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    volumes:
+      - ${CODE_PATH}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+    environment:
+      - CERT_NAME=shared
+      - VIRTUAL_HOST=${API_DOMAIN}
+    depends_on:
+      - php-fpm
+      - mysql
+      - redis
+  php-fpm:
+    build:
+      context: ./php-fpm
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    volumes:
+      - ${CODE_PATH}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+      - ./php-fpm/php7.3.ini:/usr/local/etc/php/php.ini
+  mysql:
+    build: ./mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql/app.cnf:/etc/mysql/conf.d/app.cnf
+      - ./mysql/initdb.d/:/docker-entrypoint-initdb.d/
+    ports:
+      - "${MYSQL_PORT}:3306"
+  redis:
+    build: ./redis
+volumes:
+  mysql-data:
+    driver: local
