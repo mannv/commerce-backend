@@ -10,6 +10,6 @@ class Product extends BaseEntity
      *
      * @var array
      */
-    protected $fillable = ['name', 'price', 'old_price', 'description'];
+    protected $fillable = ['name', 'price', 'old_price', 'description', 'crawler_url', 'is_crawler'];
 
 }

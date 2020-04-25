@@ -8,31 +8,33 @@ use Illuminate\Database\Migrations\Migration;
  */
 class CreateProductsTable extends Migration
 {
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('products', function(Blueprint $table) {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('price');
             $table->integer('old_price');
             $table->text('description');
+            $table->string('crawler_url');
+            $table->boolean('is_crawler')->default(false);
             $table->timestamps();
             $table->softDeletes();
-		});
-	}
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('products');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('products');
+    }
 }
