@@ -2,24 +2,14 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
-
-/**
- * Class Color.
- *
- * @package namespace App\Entities;
- */
-class Color extends Model implements Transformable
+class Color extends BaseEntity
 {
-    use TransformableTrait;
-
+    protected $table = 'colors';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name', 'hex_color'];
 
 }

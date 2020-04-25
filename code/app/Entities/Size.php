@@ -2,24 +2,14 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
-
-/**
- * Class Size.
- *
- * @package namespace App\Entities;
- */
-class Size extends Model implements Transformable
+class Size extends BaseEntity
 {
-    use TransformableTrait;
-
+    protected $table = 'sizes';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name'];
 
 }

@@ -4,9 +4,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateSizesTable.
+ * Class CreateProductGroupsTable.
  */
-class CreateSizesTable extends Migration
+class CreateProductGroupsTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -15,11 +15,13 @@ class CreateSizesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('sizes', function(Blueprint $table) {
+		Schema::create('product_groups', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 45)->unique();
+            $table->integer('product_id');
+            $table->integer('color_id');
             $table->timestamps();
             $table->softDeletes();
+            $table->unique(['product_id', 'color_id']);
 		});
 	}
 
@@ -30,6 +32,6 @@ class CreateSizesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('sizes');
+		Schema::drop('product_groups');
 	}
 }

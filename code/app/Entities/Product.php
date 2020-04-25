@@ -2,24 +2,14 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
-
-/**
- * Class Product.
- *
- * @package namespace App\Entities;
- */
-class Product extends Model implements Transformable
+class Product extends BaseEntity
 {
-    use TransformableTrait;
-
+    protected $table = 'products';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name', 'price', 'old_price', 'description'];
 
 }

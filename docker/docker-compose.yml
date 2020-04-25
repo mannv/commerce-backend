@@ -13,10 +13,6 @@ services:
     environment:
       - CERT_NAME=shared
       - VIRTUAL_HOST=${API_DOMAIN}
-    depends_on:
-      - php-fpm
-      - mysql
-      - redis
   php-fpm:
     build:
       context: ./php-fpm
