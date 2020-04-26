@@ -2,18 +2,17 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\ProductGroupSizeRepository;
 use App\Entities\ProductGroupSize;
+use App\Presenters\ProductGroupSizePresenter;
 use App\Validators\ProductGroupSizeValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
  * Class ProductGroupSizeRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class ProductGroupSizeRepositoryEloquent extends BaseRepository implements ProductGroupSizeRepository
+class ProductGroupSizeRepositoryEloquent extends MyRepositoryEloquent implements ProductGroupSizeRepository
 {
     /**
      * Specify Model class name
@@ -26,10 +25,10 @@ class ProductGroupSizeRepositoryEloquent extends BaseRepository implements Produ
     }
 
     /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
     public function validator()
     {
 
@@ -43,6 +42,7 @@ class ProductGroupSizeRepositoryEloquent extends BaseRepository implements Produ
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+        $this->setPresenter(app(ProductGroupSizePresenter::class));
     }
-    
+
 }

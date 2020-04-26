@@ -20,6 +20,7 @@ class CreateProductGroupImagesTable extends Migration
             $table->integer('product_group_id');
             $table->string('image');
             $table->boolean('cover_image')->default(false);
+            $table->boolean('is_crawler')->default(false);
             $table->timestamps();
             $table->softDeletes();
 		});

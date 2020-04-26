@@ -2,18 +2,17 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\SizeRepository;
 use App\Entities\Size;
+use App\Presenters\SizePresenter;
 use App\Validators\SizeValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
  * Class SizeRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class SizeRepositoryEloquent extends BaseRepository implements SizeRepository
+class SizeRepositoryEloquent extends MyRepositoryEloquent implements SizeRepository
 {
     /**
      * Specify Model class name
@@ -26,10 +25,10 @@ class SizeRepositoryEloquent extends BaseRepository implements SizeRepository
     }
 
     /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
     public function validator()
     {
 
@@ -43,6 +42,7 @@ class SizeRepositoryEloquent extends BaseRepository implements SizeRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+        $this->setPresenter(app(SizePresenter::class));
     }
-    
+
 }

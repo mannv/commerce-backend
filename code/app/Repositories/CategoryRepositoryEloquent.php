@@ -3,16 +3,16 @@
 namespace App\Repositories;
 
 use App\Entities\Category;
+use App\Presenters\CategoryPresenter;
 use App\Validators\CategoryValidator;
 use Prettus\Repository\Criteria\RequestCriteria;
-use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class CategoryRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
+class CategoryRepositoryEloquent extends MyRepositoryEloquent implements CategoryRepository
 {
     /**
      * Specify Model class name
@@ -25,10 +25,10 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
     }
 
     /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
     public function validator()
     {
 
@@ -42,6 +42,7 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+        $this->setPresenter(app(CategoryPresenter::class));
     }
-    
+
 }

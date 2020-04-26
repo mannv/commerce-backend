@@ -2,18 +2,17 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\ProductGroupImageRepository;
 use App\Entities\ProductGroupImage;
+use App\Presenters\ProductGroupImagePresenter;
 use App\Validators\ProductGroupImageValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
  * Class ProductGroupImageRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class ProductGroupImageRepositoryEloquent extends BaseRepository implements ProductGroupImageRepository
+class ProductGroupImageRepositoryEloquent extends MyRepositoryEloquent implements ProductGroupImageRepository
 {
     /**
      * Specify Model class name
@@ -26,10 +25,10 @@ class ProductGroupImageRepositoryEloquent extends BaseRepository implements Prod
     }
 
     /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
     public function validator()
     {
 
@@ -43,6 +42,7 @@ class ProductGroupImageRepositoryEloquent extends BaseRepository implements Prod
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+        $this->setPresenter(app(ProductGroupImagePresenter::class));
     }
-    
+
 }

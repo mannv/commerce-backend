@@ -2,18 +2,17 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\ColorRepository;
 use App\Entities\Color;
+use App\Presenters\ColorPresenter;
 use App\Validators\ColorValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
  * Class ColorRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class ColorRepositoryEloquent extends BaseRepository implements ColorRepository
+class ColorRepositoryEloquent extends MyRepositoryEloquent implements ColorRepository
 {
     /**
      * Specify Model class name
@@ -26,10 +25,10 @@ class ColorRepositoryEloquent extends BaseRepository implements ColorRepository
     }
 
     /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
     public function validator()
     {
 
@@ -43,6 +42,11 @@ class ColorRepositoryEloquent extends BaseRepository implements ColorRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+        $this->setPresenter(app(ColorPresenter::class));
     }
-    
+
+    public function getByName(string $name)
+    {
+        return $this->getFirst(['name' => $name]);
+    }
 }

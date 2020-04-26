@@ -5,7 +5,7 @@
 crontab -u training /opt/training
 
 #start supervisor
-#/etc/init.d/supervisor start
+/etc/init.d/supervisor start
 
 #start PHP-FPM
 php-fpm

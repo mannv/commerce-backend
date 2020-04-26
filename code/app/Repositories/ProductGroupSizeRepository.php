@@ -2,14 +2,12 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Contracts\RepositoryInterface;
-
 /**
  * Interface ProductGroupSizeRepository.
  *
  * @package namespace App\Repositories;
  */
-interface ProductGroupSizeRepository extends RepositoryInterface
+interface ProductGroupSizeRepository extends MyRepository
 {
     //
 }

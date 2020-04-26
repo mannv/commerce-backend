@@ -10,6 +10,6 @@ class ProductGroupImage extends BaseEntity
      *
      * @var array
      */
-    protected $fillable = ['product_group_id', 'image', 'cover_image'];
+    protected $fillable = ['product_group_id', 'image', 'cover_image', 'is_crawler'];
 
 }

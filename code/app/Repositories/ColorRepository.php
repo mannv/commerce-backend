@@ -2,14 +2,12 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Contracts\RepositoryInterface;
-
 /**
  * Interface ColorRepository.
  *
  * @package namespace App\Repositories;
  */
-interface ColorRepository extends RepositoryInterface
+interface ColorRepository extends MyRepository
 {
-    //
+    public function getByName(string $name);
 }

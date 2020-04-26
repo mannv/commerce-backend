@@ -23,6 +23,8 @@ services:
     volumes:
       - ${CODE_PATH}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
       - ./php-fpm/php7.3.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "9001:9001"
   mysql:
     build: ./mysql
     environment:

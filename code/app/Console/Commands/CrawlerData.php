@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Console\Command;
 
 class CrawlerData extends Command
@@ -23,6 +25,11 @@ class CrawlerData extends Command
     private $domain = 'https://marc.com.vn';
 
     /**
+     * @var ProductRepository
+     */
+    private $productRepository;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -32,38 +39,75 @@ class CrawlerData extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+
+    public function handle(ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
-        $totalPage = 15;
-        for ($i = 1; $i <= $totalPage; $i++) {
-            $this->getProducts($i);
+        $this->productRepository = $productRepository;
+        $categories = [
+            [
+                'name' => 'Áo kiểu',
+                'url' => 'https://marc.com.vn/collections/ao-kieu',
+                'totalPage' => 3
+            ],
+            [
+                'name' => 'Áo thun',
+                'url' => 'https://marc.com.vn/collections/ao-thun-nu',
+                'totalPage' => 2
+            ],
+            [
+                'name' => 'Đầm',
+                'url' => 'https://marc.com.vn/collections/dam',
+                'totalPage' => 7
+            ],
+            [
+                'name' => 'Quần',
+                'url' => 'https://marc.com.vn/collections/quan',
+                'totalPage' => 2
+            ],
+            [
+                'name' => 'Váy',
+                'url' => 'https://marc.com.vn/collections/vay',
+                'totalPage' => 2
+            ],
+            [
+                'name' => 'Phụ kiện',
+                'url' => 'https://marc.com.vn/collections/phu-kien',
+                'totalPage' => 1
+            ],
+            [
+                'name' => 'Đồ bơi/đồ lót',
+                'url' => 'https://marc.com.vn/collections/do-boi',
+                'totalPage' => 1
+            ]
+        ];
+
+
+        foreach ($categories as $item) {
+            $cate = $categoryRepository->create(['name' => $item['name']]);
+            for ($i = 1; $i <= $item['totalPage']; $i++) {
+                $this->getProducts($item['url'], $i , $cate['data']['id']);
+            }
         }
     }
 
-    public function getProducts($page)
+    public function getProducts($url, $page, $cateId)
     {
-        $url = $this->domain . '/collections/all?page=' . $page;
+        $url .= '?page=' . $page;
         $html = file_get_html($url);
         $products = $html->find('.product-detail');
         if (empty($products)) {
             return;
         }
-        $data = [];
+        $values = [];
         foreach ($products as $pro) {
             $hyperLink = $pro->find('a', 0);
-            $data[] = [
+            $values[] = [
+                'cate_id' => $cateId,
                 'name' => trim($hyperLink->plaintext),
-                'url' => $this->domain . trim($hyperLink->href),
+                'crawler_url' => $this->domain . trim($hyperLink->href),
             ];
         }
-        echo '<pre>' . print_r($data, true) . '</pre>';
-        die;
-
+        $this->productRepository->addMulti($values);
         $this->info('crawler products page: ' . $page);
     }
 }

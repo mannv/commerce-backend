@@ -17,10 +17,11 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('cate_id')->nullable();
             $table->string('name');
-            $table->integer('price');
-            $table->integer('old_price');
-            $table->text('description');
+            $table->integer('price')->nullable();
+            $table->integer('old_price')->nullable();
+            $table->text('description')->nullable();
             $table->string('crawler_url');
             $table->boolean('is_crawler')->default(false);
             $table->timestamps();
