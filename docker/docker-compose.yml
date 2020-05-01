@@ -13,6 +13,15 @@ services:
     environment:
       - CERT_NAME=shared
       - VIRTUAL_HOST=${API_DOMAIN}
+  node:
+    build: ./nodejs
+    volumes:
+      - ${NODE_PATH}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+    environment:
+      - CERT_NAME=shared
+      - VIRTUAL_HOST=${API_DOMAIN_NODE}
+      - VIRTUAL_PORT=3000
+    tty: true
   php-fpm:
     build:
       context: ./php-fpm
@@ -40,6 +49,12 @@ services:
       - "${MYSQL_PORT}:3306"
   redis:
     build: ./redis
+  mongodb:
+    build: ./mongodb
+    volumes:
+      - ./mongodb/data/db:/data/db
+    ports:
+      - "27017:27017"
 volumes:
   mysql-data:
     driver: local
