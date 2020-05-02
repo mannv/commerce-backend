@@ -8,6 +8,8 @@ ENV APP_ROOT /var/www
 RUN apk add bash \
     && apk add nano
 
+RUN npm install -g nodemon
+
 WORKDIR ${APP_ROOT}
 
 EXPOSE 3000
