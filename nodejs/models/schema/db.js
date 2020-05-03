@@ -27,7 +27,7 @@ const Size = mongoose.Schema({
   },
 })
 
-const ProductColor = mongoose.Schema({
+const ProductColorSize = mongoose.Schema({
   size: Size,
   sku: {
     type: String,
@@ -37,7 +37,12 @@ const ProductColor = mongoose.Schema({
     type: Number,
     required: true,
   },
-  images: [String],
+})
+
+const ProductColor = mongoose.Schema({
+  color: Color,
+  sizes: [ProductColorSize],
+  images: [Object],
 })
 
 const Product = mongoose.Schema({
@@ -65,6 +70,7 @@ exports.colorSchema = Color
 exports.sizeSchema = Size
 exports.productSchema = Product
 exports.productColorSchema = ProductColor
+exports.productColorSizeSchema = ProductColorSize
 
 const User = mongoose.Schema({
   name: {
