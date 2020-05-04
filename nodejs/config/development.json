@@ -2,5 +2,8 @@
   "version": "1.0.0",
   "jwtPrivateKey": "demo-nodejs-express-mongodb",
   "mongodb_connection": "mongodb://mongodb:27017/women_fashion",
-  "log_level": "info"
+  "log_level": "info",
+  "pagination": {
+    "limit": 15
+  }
 }
