@@ -15,6 +15,7 @@ app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing
                                                 // application/x-www-form-urlencoded
 
+app.use(express.static('public'))
 
 app.use('/api/categories', categories)
 app.use('/api/users', users)
