@@ -30,7 +30,7 @@ class ProductModel extends BaseModel {
       skip(skip).
       limit(limit).
       sort(sortBy).
-      select('-category -__v -colors.sizes')
+      select('-category -__v -description -colors.sizes')
   }
 }
 
